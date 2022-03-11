@@ -5,4 +5,21 @@ GET http://localhost:3000/post
 
 ###
 
+GET http://localhost:3000/post?sender=leah
+
+###
+GET http://localhost:3000/post/6228ae4634a0b06d12c49430
+
+###
+
 POST http://localhost:3000/post
+Content-Type: application/json
+
+{
+    "message": "this is my new message",
+    "sender": "leah" 
+}
+
+###
+
+DELETE  http://localhost:3000/post
