@@ -31,18 +31,19 @@ const getPostById = async(req,res)=>{
     const id = req.params.id
     if (id == null || id == undefined) 
     {
-        res.status(400).send({
-            'status':'fail',
-            'message':err.message})     
+        res.status(400).send({'message':err.message})     
     }
     try {
         post = await Post.findById(id)
-        res.status(200).send(post)
+        if (post == null){
+            res.status(400).send({
+                'err': 'post doesnot exists'
+            })
+        }else{
+            res.status(200).send(post)
+        }
     } catch (err) {
-        res.status(400).send({
-            'status':'fail',
-            'message' : err.message
-        })
+        res.status(400).send({'message' : err.message})
     }
 
 }
@@ -67,8 +68,7 @@ const createNewPost = async (req,res)=>{
     })
     try{
         newPost = await post.save()
-        res.status(200).send(newPost)
-        
+        res.status(200).send(newPost)      
 
     }catch(err){
         res.status(400).send({
@@ -78,10 +78,26 @@ const createNewPost = async (req,res)=>{
     
 }
 
+const deletePostById = async(req,res)=>{
+    console.log('deletePostById id=' + req.params.id)
+    const id = req.params.id
+    if (id == null || id == undefined) 
+    {
+        res.status(400).send({'err':'no id provided'})     
+    }
+    try {
+        post = await Post.deleteOne({"_id":id})
+        res.status(200).send()
+    } catch (err) {
+        res.status(400).send({'message' : err.message})
+    }
+
+}
 
 module.exports = {
     getAllPosts,
     createNewPost,
     deleteAllPosts,
-    getPostById
+    getPostById,
+    deletePostById
 }

@@ -6,6 +6,9 @@ router.get('/',Post.getAllPosts)
 
 router.get('/:id',Post.getPostById)
 
+router.delete('/:id',Post.deletePostById)
+
+
 
 router.delete('/',Post.deleteAllPosts)
 
