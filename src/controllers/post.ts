@@ -22,32 +22,31 @@ const getAllPosts = async (req : Request,res : Response)=>{
     } catch (err) {
         res.status(400).send({
             'message' : err.message
-        })
+        });
    
     }
-}
+};
 
 const getPostById = async(req : Request,res : Response)=>{
     console.log('getPostById id=' + req.params.id)
     const id = req.params.id
     if (id == null || id == undefined) 
     {
-        res.status(400).send({'message':'no id provided'})     
+        res.status(400).send({'message':'no id provided'});     
     }
     try {
         const post = await Post.findById(id)
         if (post == null){
             res.status(400).send({
                 'err': 'post doesnot exists'
-            })
+            });
         }else{
-            res.status(200).send(post)
+            res.status(200).send(post);
         }
     } catch (err) {
-        res.status(400).send({'message' : err.message})
+        res.status(400).send({'message' : err.message});
     }
-
-}
+};
 
 const deleteAllPosts = (req:Request,res:Response)=>{
     res.send('app delete post')
@@ -62,22 +61,21 @@ const deleteAllPosts = (req:Request,res:Response)=>{
 
 const createNewPost = async (req:Request,res:Response)=>{
     console.log(req.body)
-
+    const sender = req.body._id;
     const post = new Post({
         message: req.body.message,
-        sender: req.body.sender
-    })
+        sender: sender,
+    });
     try{
-        const newPost = await post.save()
-        res.status(200).send(newPost)      
+        const newPost = await post.save();
+        res.status(200).send(newPost);     
 
     }catch(err){
         res.status(400).send({
             'message' : err.message
-        })
-    }
-    
-}
+        });
+    }   
+};
 
 const deletePostById = async(req:Request,res:Response)=>{
     console.log('deletePostById id=' + req.params.id)
@@ -87,13 +85,12 @@ const deletePostById = async(req:Request,res:Response)=>{
         res.status(400).send({'err':'no id provided'})     
     }
     try {
-        await Post.deleteOne({"_id":id})
-        res.status(200).send()
+        await Post.deleteOne({_id:id});
+        res.status(200).send();
     } catch (err) {
-        res.status(400).send({'message' : err.message})
+        res.status(400).send({'message' : err.message});
     }
-
-}
+};
 
 export = {
     getAllPosts,

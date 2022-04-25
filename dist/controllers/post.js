@@ -67,9 +67,10 @@ const deleteAllPosts = (req, res) => {
  */
 const createNewPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
+    const sender = req.body._id;
     const post = new post_model_1.default({
         message: req.body.message,
-        sender: req.body.sender
+        sender: sender,
     });
     try {
         const newPost = yield post.save();

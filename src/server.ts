@@ -18,4 +18,7 @@ app.use(bodyParser.json())
 import post_routes from './routes/post_routes'
 app.use('/post',post_routes)
 
+import auth_routes from './routes/auth_routes'
+app.use('/auth',auth_routes)
+
 export = app

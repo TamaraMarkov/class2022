@@ -17,5 +17,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true, limit: '1mb' }));
 app.use(body_parser_1.default.json());
 const post_routes_1 = __importDefault(require("./routes/post_routes"));
 app.use('/post', post_routes_1.default);
+const auth_routes_1 = __importDefault(require("./routes/auth_routes"));
+app.use('/auth', auth_routes_1.default);
 module.exports = app;
 //# sourceMappingURL=server.js.map
